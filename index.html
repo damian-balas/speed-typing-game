@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Speed Typing Game</title>
+    <meta
+      name="description"
+      content="A game where you can test your typing skills!"
+    />
+    <meta name="author" content="Damian Balas" />
+    <meta
+      name="keywords"
+      content="Game, Typing, Typing skills, Fast typing, Typing Game"
+    />
+    <meta name="theme-color" content="#1e2530" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,300i,400&display=swap"
+    />
+    <link rel="stylesheet" href="resources/css/main.css" />
+    <link rel="icon" sizes="192x192" href="favicon.png" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Speed Typing <span style="display: block">Game</span></h1>
+    </header>
+    <main class="hero">
+      <div class="row row--1">
+        <span class="row__countdown">
+          Countdown <span class="row__countdown--time">5</span>
+        </span>
+        <div class="wordlist">
+          <span class="arrow" aria-hidden="true"></span>
+          <ul class="words"></ul>
+        </div>
+      </div>
+      <div class="row row--2">
+        <div class="row__circle">
+          <span class="row__word">Word</span>
+        </div>
+        <div class="row__input--wrapper">
+          <input class="row__input" placeholder="Word" autofocus type="text" />
+        </div>
+        <span class="row__level">Level 1</span>
+      </div>
+      <div class="row row--3">
+        <span class="row__score"
+          >Score <span class="row__score--number">0</span></span
+        >
+        <span class="row__score"
+          >High Score <span class="row__score--number">0</span></span
+        >
+      </div>
+    </main>
+
+    <script src="resources/js/main.js"></script>
+  </body>
+</html>
