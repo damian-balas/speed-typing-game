@@ -29,7 +29,7 @@
     <main class="hero">
       <div class="row row--1">
         <span class="row__countdown">
-          Countdown <span class="row__countdown--time">5</span>
+          Countdown <span class="row__countdown--time"></span>
         </span>
         <div class="wordlist">
           <span class="arrow" aria-hidden="true"></span>
@@ -43,14 +43,15 @@
         <div class="row__input--wrapper">
           <input class="row__input" placeholder="Word" autofocus type="text" />
         </div>
-        <span class="row__level">Level 1</span>
+        <span class="row__level">Level 0</span>
       </div>
       <div class="row row--3">
         <span class="row__score"
-          >Score <span class="row__score--number">0</span></span
+          >Score <span id="score" class="row__score--number">0</span></span
         >
         <span class="row__score"
-          >High Score <span class="row__score--number">0</span></span
+          >High Score
+          <span id="highscore" class="row__score--number">0</span></span
         >
       </div>
     </main>
