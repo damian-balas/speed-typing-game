@@ -74,6 +74,7 @@ let highscore = 0;
 let isPlaying = false;
 let currWord;
 let hsl = 120;
+const arrayLength = words[lvl].length;
 
 // DOM Elements
 const wordInput = document.querySelector('.row__input');
@@ -85,57 +86,59 @@ const level = document.querySelector('.row__level');
 const circle = document.querySelector('.row__circle');
 
 function nextWord(wordsArray) {
-    hsl = hsl < 1 ? 120 : hsl;
-    hsl -= 120 / wordsArray[lvl].length;
+    hsl = hsl < 4 ? 120 : hsl;
+    hsl -= 120 / arrayLength;
     circle.style.border = `2px solid hsl(${hsl}, 100%, 50%)`;
     currWord = wordsArray[lvl][wordIndex];
-    currentWord.innerHTML = currWord;
+    currentWord.textContent = currWord;
+    level.textContent = `Level ${lvl}`;
     wordIndex += 1;
     time = 5;
-    if (wordIndex > 10) time = 4;
-    if (wordIndex > 20) time = 3;
 
-    if (wordIndex === wordsArray[lvl].length) {
+    if (wordIndex > Math.floor(arrayLength * 0.66)) time = 3;
+    else if (wordIndex > Math.floor(arrayLength * 0.33)) time = 4;
+
+    if (wordIndex === arrayLength) {
         lvl = 1;
-        level.textContent = `Level ${lvl}`;
         wordIndex = 0;
     }
 }
 
 function reset(wordsArray) {
-    time = 5;
-    hsl = 120;
     if (highscore < score) {
         highscore = score;
         localStorage.setItem('highscore', highscore);
-        highscoreSpan.textContent =
-            localStorage.getItem('highscore') === null ? highscore : localStorage.getItem('highscore');
+        highscoreSpan.textContent = highscore;
     }
+
+    time = 5;
+    hsl = 120;
     score = 0;
-    scoreSpan.textContent = score;
-    wordIndex = 0;
+    wordIndex = 1;
     lvl = 0;
-    level.textContent = `Level ${lvl}`;
-    countdownTime.textContent = time;
-    currWord = wordsArray[lvl][wordIndex];
-    currentWord.textContent = currWord;
-    wordIndex += 1;
     isPlaying = false;
+
+    circle.style.border = `2px solid hsl(${hsl}, 100%, 50%)`;
+    level.textContent = `Level ${lvl}`;
+    scoreSpan.textContent = score;
+    currWord = wordsArray[lvl][wordIndex - 1];
+    currentWord.textContent = currWord;
+    countdownTime.textContent = time;
 }
 
 function countdown() {
     if (isPlaying) {
+        countdownTime.textContent = time;
         if (time > 0) {
             time -= 1;
         } else if (time === 0) {
             reset(words);
         }
-        countdownTime.textContent = time;
     }
 }
 
 function startMatch() {
-    if (wordInput.value === currWord) {
+    if (wordInput.value.toUpperCase() === currWord.toUpperCase()) {
         isPlaying = true;
         nextWord(words);
         wordInput.value = '';
