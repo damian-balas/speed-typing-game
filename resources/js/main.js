@@ -63,6 +63,38 @@ const words = [
         'replace',
         'languid',
     ],
+    [
+        'harmony',
+        'filthy',
+        'elite',
+        'disapprove',
+        'science',
+        'feigned',
+        'descriptive',
+        'reduce',
+        'grouchy',
+        'rail',
+        'quack',
+        'film',
+        'matter',
+        'house',
+        'regret',
+        'wriggle',
+        'business',
+        'omniscient',
+        'burn',
+        'tiger',
+        'funny',
+        'crate',
+        'rod',
+        'box',
+        'songs',
+        'cut',
+        'useful',
+        'last',
+        'scattered',
+        'frightened',
+    ],
 ];
 
 // Globals
@@ -85,25 +117,6 @@ const countdownTime = document.querySelector('.row__countdown--time');
 const level = document.querySelector('.row__level');
 const circle = document.querySelector('.row__circle');
 
-function nextWord(wordsArray) {
-    hsl = hsl < 4 ? 120 : hsl;
-    hsl -= 120 / arrayLength;
-    circle.style.border = `2px solid hsl(${hsl}, 100%, 50%)`;
-    currWord = wordsArray[lvl][wordIndex];
-    currentWord.textContent = currWord;
-    level.textContent = `Level ${lvl}`;
-    wordIndex += 1;
-    time = 5;
-
-    if (wordIndex > Math.floor(arrayLength * 0.66)) time = 3;
-    else if (wordIndex > Math.floor(arrayLength * 0.33)) time = 4;
-
-    if (wordIndex === arrayLength) {
-        lvl = 1;
-        wordIndex = 0;
-    }
-}
-
 function reset(wordsArray) {
     if (highscore < score) {
         highscore = score;
@@ -119,11 +132,33 @@ function reset(wordsArray) {
     isPlaying = false;
 
     circle.style.border = `2px solid hsl(${hsl}, 100%, 50%)`;
-    level.textContent = `Level ${lvl}`;
+    level.textContent = `Level ${lvl + 1}`;
     scoreSpan.textContent = score;
     currWord = wordsArray[lvl][wordIndex - 1];
     currentWord.textContent = currWord;
     countdownTime.textContent = time;
+}
+
+function nextWord(wordsArray) {
+    hsl = hsl < 4 ? 120 : hsl;
+    hsl -= 120 / arrayLength;
+    circle.style.border = `2px solid hsl(${hsl}, 100%, 50%)`;
+    currWord = wordsArray[lvl][wordIndex];
+    currentWord.textContent = currWord;
+    level.textContent = `Level ${lvl + 1}`;
+    wordIndex += 1;
+    time = 5;
+
+    if (wordIndex > Math.floor(arrayLength * 0.66)) time = 3;
+    else if (wordIndex > Math.floor(arrayLength * 0.33)) time = 4;
+
+    if (wordIndex === arrayLength) {
+        lvl += 1;
+        if (lvl === 3) {
+            reset(words);
+        }
+        wordIndex = 0;
+    }
 }
 
 function countdown() {
@@ -137,14 +172,18 @@ function countdown() {
     }
 }
 
-function startMatch() {
-    if (wordInput.value.toUpperCase() === currWord.toUpperCase()) {
+function startMatch(e) {
+    if (e.isTrusted && wordInput.value.toUpperCase() === currWord.toUpperCase()) {
         isPlaying = true;
         nextWord(words);
         wordInput.value = '';
         score += 1;
         scoreSpan.textContent = score;
         countdown();
+    }
+    if (e.isTrusted === false) {
+        console.error('%cMaybe next time 😂😂😂', 'font-size: 30px; color: red');
+        setTimeout(() => window.location.reload(), 3000);
     }
 }
 

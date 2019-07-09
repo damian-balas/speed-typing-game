@@ -9,6 +9,12 @@
   margin: 0;
 }
 
+
+
+:root {
+  --cubicBezier: cubic-bezier(0.7, 0.45, 0.39, 1.5);
+}
+
 html {
   font-family: "Lato", monospace, sans-serif;
   box-sizing: border-box;
@@ -20,6 +26,7 @@ body {
   background-image: linear-gradient(35deg, #1e2530, #11151c);
   min-height: 100vh;
   display: flex;
+  overflow-x: hidden;
   flex-direction: column;
   -webkit-user-select: none;
   -moz-user-select: -moz-none;
@@ -31,6 +38,8 @@ body {
   padding: 1rem 0 0.5rem;
   text-align: center;
   line-height: 1.35;
+  transform: translateX(-100%);
+  animation: slide 1s var(--cubicBezier) 150ms forwards;
 }
 
 .hero {
@@ -52,12 +61,16 @@ body {
 
 .row--1 {
   flex: 1;
+  transform: translateX(100%);
+  animation: slide 1s var(--cubicBezier) 150ms forwards;
 }
 
 .row--2 {
   flex: 5;
   margin-top: 1.5rem;
   align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s var(--cubicBezier) 450ms forwards;
 }
 
 .row--2 > * {
@@ -168,9 +181,39 @@ body {
   align-items: center;
 }
 
+.row--3 .row__score:nth-child(1) {
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: slide 1s var(--cubicBezier) 750ms forwards;
+}
+
+.row--3 .row__score:nth-child(2) {
+  transform: translateX(100%);
+  opacity: 0;
+  animation: slide 1s var(--cubicBezier) 750ms forwards;
+}
+
 .row--3 .row__score--number {
   font-size: 2.5em;
   margin-left: 0.7rem;
   font-weight: bold;
   color: #898989;
+}
+
+/* Animations */
+@keyframes slide {
+  45%{
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  100% {
+    opacity: 1;
+  }
 }
